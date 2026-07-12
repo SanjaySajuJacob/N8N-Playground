@@ -1,0 +1,127 @@
+{
+  "createdAt": "2024-02-23T16:58:31.616Z",
+  "updatedAt": "2024-02-23T16:58:31.616Z",
+  "id": "jobAutomationAgentFlow123",
+  "name": "Job Application Automation Flow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "job-trigger",
+        "options": {}
+      },
+      "name": "Browser Extension Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ],
+      "id": "e1f13b63-234b-4c4f-9e6b-abcdef123456"
+    },
+    {
+      "parameters": {
+        "jsCode": "// In a fully configured n8n with NODE_FUNCTION_ALLOW_EXTERNAL=*, \n// you can require our custom agents here.\n// \n// const { parseJobDescription } = require('/data/shared/agents/jd_parser.js');\n// const { scoreFit } = require('/data/shared/agents/fit_scorer.js');\n\nconst rawJD = $input.item.json.body.jobDescription || 'No job description provided';\nconst baseResume = 'Sanjay Saju Jacob - Software Engineer...'; // Replace or load via another node\n\nreturn {\n  json: {\n    rawJD,\n    baseResume,\n    message: 'To run the AI agents, ensure NODE_FUNCTION_ALLOW_EXTERNAL=* is added to your docker-compose.yml environment for n8n.'\n  }\n};"
+      },
+      "name": "Run JD Parser & Fit Scorer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        350,
+        300
+      ],
+      "id": "code-node-1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": true,
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "If Fit is Good",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ],
+      "id": "if-node-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Run the Resume Optimizer and Cover Letter Crafter\n// \n// const { optimizeResume } = require('/data/shared/agents/resume_optimizer.js');\n// const { craftCoverLetter } = require('/data/shared/agents/cover_letter_crafter.js');\n\nreturn {\n  json: {\n    status: 'Documents Generated'\n  }\n};"
+      },
+      "name": "Generate Tailored Resume & Cover Letter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        850,
+        200
+      ],
+      "id": "code-node-2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Run manual agents\n// const { generateInterviewPrep } = require('/data/shared/agents/interview_prep.js');\n// const { draftOutreach } = require('/data/shared/agents/outreach_drafter.js');\n\nreturn {\n  json: {\n    status: 'Interview Prep Generated'\n  }\n};"
+      },
+      "name": "Generate Interview Prep & Outreach",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        850,
+        400
+      ],
+      "id": "code-node-3"
+    }
+  ],
+  "connections": {
+    "Browser Extension Webhook": {
+      "main": [
+        [
+          {
+            "node": "Run JD Parser & Fit Scorer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run JD Parser & Fit Scorer": {
+      "main": [
+        [
+          {
+            "node": "If Fit is Good",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Fit is Good": {
+      "main": [
+        [
+          {
+            "node": "Generate Tailored Resume & Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate Interview Prep & Outreach",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "f7e51c89-1111-2222-3333-23a2b7245d10"
+}

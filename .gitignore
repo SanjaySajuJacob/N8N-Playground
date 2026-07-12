@@ -1,0 +1,11 @@
+.env
+claude-wrapper/.token
+
+# n8n exported credentials (AES-encrypted with N8N_ENCRYPTION_KEY, but keep out of git anyway)
+n8n/demo-data/credentials/
+
+# Live workflow export — contains the wrapper token in plaintext
+n8n/demo-data/workflows/my-workflow-live.json
+
+# Log files (leak local paths / usage timelines)
+*.log

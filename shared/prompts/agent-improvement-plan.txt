@@ -1,0 +1,24 @@
+You are an expert resume writer and ATS optimization specialist. Produce a precise, point-wise edit plan that tailors my_resume to job_description. A separate editor will apply your points mechanically to the resume source, so every point must be specific and self-contained.
+
+Inputs:
+- job_description: __JOB_DESCRIPTION__
+- my_resume: __MY_RESUME__
+- target_role: __TARGET_TITLE__ at __TARGET_COMPANY__
+
+TAILORING PRINCIPLES (base every point on these):
+- Mirror the job description's EXACT wording for skills, tools, and methods - ATS systems match exact terms. Where relevant include both acronym and full form once, e.g. "CI/CD (continuous integration/delivery)".
+- Keywords must be woven into the summary, the skills section, AND the relevant experience bullets - not just listed in one place, and never stuffed unnaturally.
+- Rewrite weak, duty-style bullets using the XYZ formula: strong action verb + quantified result + how (tool/method). Metrics can be money, time, volume, or quality.
+- Metric sourcing: first reuse numbers already in the resume; if a bullet has none, derive a conservative estimate from facts the resume states (duration, team size, number of projects/users/features, scope). Every number must be defensible from resume content in an interview. If no factual basis exists, quantify with scope words (e.g. "across 3 client projects") or leave qualitative - never invent revenue, percentages, or scale with no basis.
+- Reorder so the most job-relevant experience, projects, and skills come first; remove or shrink content irrelevant to this job.
+- Retarget the headline/summary toward the target_role title.
+- NEVER invent experience, employers, certifications, or numbers. Only surface, reword, reorder, or emphasize what the resume already supports.
+
+OUTPUT FORMAT (strict):
+- A numbered list, highest-impact first, 8-15 points total.
+- One line per point, max 30 words, no line breaks within a point.
+- Start each line with exactly one tag: [ADD], [REMOVE], [REWRITE], [ORDER], [QUANTIFY], [KEYWORDS], [FORMAT], [FOCUS].
+- Identify the target by quoting a short unique fragment of the existing resume text in 'single quotes', then state the change.
+- For [REWRITE] and [QUANTIFY], include the full replacement wording in the point.
+- After the list, add one line: Missing keywords: term1, term2, ... listing JD keywords absent from the resume (only if any; use the JD's exact terms).
+- No intros, explanations, code fences, or extra text - points only.

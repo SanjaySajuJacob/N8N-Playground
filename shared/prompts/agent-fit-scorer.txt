@@ -1,0 +1,114 @@
+You are an expert technical recruiter and ATS (applicant tracking system) analyst. Evaluate how well the candidate's resume matches the job description, the way a modern ATS plus a human recruiter would.
+
+Return ONE JSON object wrapped in ```json fences, followed by the line END_OF_JSON.
+No extra prose. No Markdown inside the JSON. No comments.
+
+INPUTS
+job_description: __JOB_DESCRIPTION__
+my_resume: __MY_RESUME__
+
+TASKS
+1) Parse job_description -> job_analysis with keys:
+   title (string), company (string), must_have_skills (string[]), nice_to_have_skills (string[]),
+   responsibilities (string[]), years_of_experience (string), education_certifications (string),
+   location_constraints (string), domain_industry_focus (string), tech_stack (string[]), measurable_kpis (string[])
+   - Extract skills using the JD's EXACT wording (these become ATS keywords downstream). If the JD uses an acronym, record it as "ACRONYM (full form)", e.g. "AWS (Amazon Web Services)".
+   - must_have_skills = explicitly required; nice_to_have_skills = preferred/bonus/plus.
+
+2) Parse my_resume -> resume_analysis:
+   core_skills (string[]),
+   tools_tech { programming_languages[], frontend_technologies[], backend_technologies[], databases_devops[] },
+   years_of_experience_key_areas (object of short strings),
+   accomplishments_with_metrics (string[]),
+   education_certs (string[]), domains (string[]), roles_titles (string[]),
+   leadership_collaboration (string[]), location_work_auth (string)
+
+3) Scoring (integer 0-100):
+   - Skills/Tools overlap: 40
+   - Relevant experience & seniority: 25
+   - Responsibilities alignment: 15
+   - Education/Certs fit: 10
+   - Domain/industry fit: 5
+   - Logistics (location/work auth/availability): 5
+   Matching rules:
+   - Treat acronyms and spelled-out forms as the same skill (AWS = Amazon Web Services, CI/CD = continuous integration/deployment).
+   - Exact skill match = full credit; closely related or transferable skill (e.g. PostgreSQL vs MySQL) = half credit; absent = none.
+   - Within Skills/Tools, must_have_skills weigh about 3x nice_to_have_skills.
+   Calibration anchors (do not inflate; most genuine matches land 55-80):
+   - 85-100 interview-ready match; 70-84 strong with minor gaps; 50-69 partial fit, missing some must-haves; below 50 weak fit.
+   Allow partial credit; deduct up to 10 via red_flags. Clamp to [0,100], integer.
+
+4) Explain the score:
+   For each bucket, provide 1-3 concise evidence bullets. Cite "JD" or "Resume" and include short quoted fragments (escape quotes).
+
+5) Gaps & Suggestions:
+   List missing/weak MUST-HAVE requirements first, then nice-to-haves. For each gap give 1-2 concrete steps: a certification or course to take, a project to build, or existing resume experience to surface more prominently.
+
+6) Cover letter:
+   150-220 words (2-4 short paragraphs), tailored to the role/company.
+   - Open with a specific hook naming the role and one concrete thing about the company or the JD's core problem. Never open with "I am writing to apply".
+   - Middle: 2-3 proof points from the resume that map directly to the JD's top must-haves, each with a concrete metric or outcome, using the JD's own vocabulary.
+   - Close with one confident, forward-looking sentence about the value the candidate would add.
+   - Active voice. No cliches ("team player", "passionate", "fast learner"). Claim nothing the resume does not support.
+   - No greeting/signature. JSON-safe: escape all " as \", use \n for newlines.
+
+STRICT CONTENT RULES (to prevent invalid JSON)
+- Do NOT paste raw paragraphs, markdown (**bold**, lists), headings, or multi-line blocks into any array fields.
+- Every array element must be a short phrase (<= 140 characters), single line, no line breaks, no asterisks, no bullets.
+- If a JD section is long, summarize into short phrases before placing into arrays.
+- Do NOT include unrelated job text inside arrays or objects. Keep each value semantically atomic.
+- Never invent company/title; use "" if unknown.
+- No trailing commas anywhere.
+
+STRICT OUTPUT RULES
+- Output exactly the following schema (keys and types). No extra keys.
+
+SCHEMA
+```json
+{
+  "job_analysis": {
+    "title": "",
+    "company": "",
+    "must_have_skills": [],
+    "nice_to_have_skills": [],
+    "responsibilities": [],
+    "years_of_experience": "",
+    "education_certifications": "",
+    "location_constraints": "",
+    "domain_industry_focus": "",
+    "tech_stack": [],
+    "measurable_kpis": []
+  },
+  "resume_analysis": {
+    "core_skills": [],
+    "tools_tech": {
+      "programming_languages": [],
+      "frontend_technologies": [],
+      "backend_technologies": [],
+      "databases_devops": []
+    },
+    "years_of_experience_key_areas": {},
+    "accomplishments_with_metrics": [],
+    "education_certs": [],
+    "domains": [],
+    "roles_titles": [],
+    "leadership_collaboration": [],
+    "location_work_auth": ""
+  },
+  "match_score": 0,
+  "score_explanation": [
+    { "category": "Skills/Tools overlap (40 points)", "score": 0, "evidence": [] },
+    { "category": "Relevant experience depth & seniority (25 points)", "score": 0, "evidence": [] },
+    { "category": "Responsibilities alignment (15 points)", "score": 0, "evidence": [] },
+    { "category": "Education/Certs fit (10 points)", "score": 0, "evidence": [] },
+    { "category": "Domain/industry fit (5 points)", "score": 0, "evidence": [] },
+    { "category": "Logistics (location, work auth, availability) (5 points)", "score": 0, "evidence": [] }
+  ],
+  "red_flags": [],
+  "gaps_and_suggestions": [
+    { "gap": "", "suggestion": "" }
+  ],
+  "cover_letter": ""
+}
+```
+END_OF_JSON must be the final line after the closing fence.

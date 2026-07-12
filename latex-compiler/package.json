@@ -1,0 +1,12 @@
+{
+  "name": "latex-compiler",
+  "version": "1.0.0",
+  "description": "HTTP wrapper for pdflatex compilation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
