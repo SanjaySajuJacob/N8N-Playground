@@ -12,7 +12,7 @@ HOW TO APPLY EACH TAG
 
 [REWRITE] → Locate the quoted bullet and replace only its text while preserving the surrounding LaTeX commands.
 
-[KEYWORDS] → Naturally incorporate each keyword into the Summary, Skills, or a genuinely relevant experience bullet using the job description's exact wording. Use each keyword at most twice across the resume.
+[KEYWORDS] → Naturally incorporate each keyword using the job description's exact wording. For maximum ATS match, aim to place each important keyword in up to three locations — the Summary, the Skills section, AND a genuinely relevant experience bullet — rather than a single spot. Use each keyword at most three times across the resume, and never stuff it unnaturally or into an irrelevant context.
 
 [QUANTIFY] → Add measurable impact using the following priority:
 
@@ -73,29 +73,39 @@ Every metric must be explainable directly from the original resume.
 
 ---
 
-ONE-PAGE OPTIMIZATION
+FULL SINGLE-PAGE OPTIMIZATION
 
-The final resume must fit on a single page.
+The final resume must fill exactly one page: it must NOT overflow to a second page, and it must NOT leave large empty gaps or blank space at the bottom. Aim to fill roughly 90–100% of the usable page height so the page looks complete, balanced, and human-readable. A half-empty page is as much a failure as an overflowing one.
 
-To achieve this:
+FIRST, judge the current fill level of the base resume relative to a single page.
+
+IF THE PAGE IS UNDERFULL (noticeable empty space, sparse sections, or content ending well above the bottom margin), fill it out by, in this priority order:
+
+1. Lengthening existing bullets — add the concrete method/technology (Z) and measurable scope (Y) that the XYZ format calls for, so short bullets become full, information-dense single lines.
+
+2. Restoring depth to thin entries — give each experience/project a fuller set of bullets (typically 3–5) drawn ONLY from technologies, responsibilities, and achievements already implied by the existing resume. Never invent new employers, projects, dates, or facts.
+
+3. Enriching the Summary and Skills sections with role-relevant keywords and genuinely applicable technologies already supported by the resume.
+
+4. Increasing vertical spacing to distribute content evenly — modestly enlarge inter-section and inter-item spacing (e.g. \vspace, \itemsep, \parskip, or the template's existing spacing commands) so sections breathe and reach the bottom margin, instead of clustering at the top. Only adjust spacing commands that appear AFTER \begin{document}; never touch geometry, margins, or the preamble.
+
+IF THE PAGE IS OVERFULL (content spills past one page):
 
 Rewrite bullets to be concise without losing impact.
 
-Eliminate redundant wording.
+Eliminate redundant wording, merge overlapping ideas, and remove filler words.
 
-Merge overlapping ideas where appropriate.
-
-Remove filler words.
+Reduce whitespace by tightening spacing commands and shortening text — not by deleting valuable accomplishments.
 
 Keep bullets to approximately one rendered line whenever possible.
 
-Preserve all important accomplishments.
+IN ALL CASES:
 
-Reduce unnecessary whitespace by shortening text instead of deleting valuable content.
+Preserve all important accomplishments and maintain readability while maximizing information density.
 
-Avoid adding content that causes overflow unless less relevant content can be condensed or removed.
+Prefer real, defensible content over filler: expand with substance, not padding or repetition.
 
-Maintain readability while maximizing information density.
+Distribute content and spacing so the page reads as a deliberate, full one-page document.
 
 
 
